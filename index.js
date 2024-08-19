@@ -52,16 +52,21 @@ app.post('/api/links', (request,response) => {
     link.linkIn = link.linkIn.toLowerCase()
     link.id = link.linkIn
     setLinks(links.concat(link))
+    console.log(`Added a route from ${link.linkIn} to ${link.linkOut}`)
     response.json(link)
 })
 
 app.get('/:linkIn', (request, response) => {
     const linkIn = request.params.linkIn
     const link = getLink(linkIn)
-    if (link)
+    if (link) {
+        console.log('Redirecting to ' + link.linkOut)
         response.redirect(302, link.linkOut)
-    else
+    }
+    else {
+        console.log('Link not found')
         response.status(404).end()
+    }
 })
 
 const PORT = process.env.PORT || 3001

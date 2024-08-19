@@ -59,7 +59,7 @@ app.get('/:linkIn', (request, response) => {
     const linkIn = request.params.linkIn
     const link = getLink(linkIn)
     if (link)
-        response.redirect(link.linkOut)
+        response.redirect(302, link.linkOut)
     else
         response.status(404).end()
 })

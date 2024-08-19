@@ -5,6 +5,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('dist'))
 
 const db = 'db.json'
 
@@ -60,10 +61,10 @@ app.get('/:linkIn', (request, response) => {
     if (link)
         response.redirect(link.linkOut)
     else
-        response.status(404).json({error: 'link not found'})
+        response.status(404).end()
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

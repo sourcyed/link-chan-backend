@@ -41,13 +41,13 @@ let links = getLinks()
 app.post('/api/links', (request,response) => {
     const link = {...request.body}
     if (!link.linkOut)
-        return response.status(400).json({error: 'linkOut missing'})
+        return response.status(400).json({error: 'URL is missing.'})
     if (!link.linkIn)
         link.linkIn = generateCustomLink()
     else if (linkExists(link))
-        return response.status(409).json({error: 'link is already in use'})
+        return response.status(409).json({error: 'Custom link is already in use.'})
     if (!link.linkIn.match(/^[a-z0-9]+$/i))
-        return response.status(400).json({error: 'linkIn is invalid'})
+        return response.status(400).json({error: 'Custom link format is invalid.'})
     link.linkIn = link.linkIn.toLowerCase()
     link.id = link.linkIn
     setLinks(links.concat(link))
